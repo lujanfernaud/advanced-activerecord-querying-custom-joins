@@ -14,7 +14,9 @@ ActiveRecord::Base.establish_connection(
   database: "upcase_exercise",
   encoding: "utf8",
   host: "localhost",
-  min_messages: "warning"
+  min_messages: "warning",
+  username: ENV["PG_USER"],
+  password: ENV["PG_PASS"]
 )
 
 CreateSchema.suppress_messages { CreateSchema.migrate(:up) }
