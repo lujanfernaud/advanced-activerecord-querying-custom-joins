@@ -14,14 +14,16 @@ class Person < ActiveRecord::Base
   end
 
   def self.with_employees
-    joins(:employees).distinct
+    from(Person.
+      joins(:employees).
+      distinct, :people)
   end
 
   def self.with_local_coworkers
-    includes(location: :people).
-      references(:location).
+    from(Person.
+      joins(location: :people).
       where("people_locations.id <> people.id").
-      distinct
+      distinct, :people)
   end
 
   def self.order_by_location_name
